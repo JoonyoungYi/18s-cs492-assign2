@@ -1,16 +1,16 @@
 import tensorflow as tf
 
-from config import *
+from extra_2_config import *
 
 
 def fc_model_fn(features, labels, mode):
     """
         Model function for PA2. Convolutional Neural Network.
     """
-    # print(features["x"])
+    # print(features)
     # Input Layer
-    input_layer = tf.reshape(features["x"], [-1, 28, 28, 1])
-    fc_layer_input_size = 28
+    input_layer = tf.reshape(features["x"], [-1, 32, 32, 3])
+    fc_layer_input_size = 32
     for i in range(hidden_layer_number - 2):
         conv_layer = tf.layers.conv2d(
             inputs=input_layer,
@@ -34,7 +34,7 @@ def fc_model_fn(features, labels, mode):
         (hidden_layer_number - 2)
     ])
     dense_layer = tf.layers.dense(
-        inputs=pooling_layer_flat, units=1024, activation=tf.nn.relu)
+        inputs=pooling_layer_flat, units=2048, activation=tf.nn.relu)
     dropout_layer = tf.layers.dropout(
         inputs=dense_layer,
         rate=DROPOUT_RATE,

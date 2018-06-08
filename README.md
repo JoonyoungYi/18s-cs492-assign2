@@ -1,17 +1,17 @@
-# KAIST CS492C Programming Assignment #1 		
+# KAIST CS492C Programming Assignment #2 		
 
 - Author: Joonyoung Yi(20183453, School of Computing, Master's degree student)
 
-- Date: 2018-04-27
+- Date: 2018-06-07
 
   ​
 
 ### 1. Environment Settings
 
-#### 1-1. How to Install 
+#### 1-1. How to Install
 
 * Python 3.5 and TensorFlow 1.4
-* `requirements/local.txt` only for development setting. 
+* `requirements/local.txt` only for development setting.
   * `requirements/local.txt` packages is not necessary for TAs.
 ```
 $ virtualenv .venv -p python3.5
@@ -59,17 +59,17 @@ $ python run.py
 ​	First, I will describe why the number of parameters of my 7-layer network is []. I built a model as below:
 
 ```
-	INPUT LAYER 
+	INPUT LAYER
 	HIDDEN LAYER 1 : DENSE LAYER 1 + BN LAYER 1 + ACTIVATION LAYER 1
 	HIDDEN LAYER 2 : DENSE LAYER 2 + BN LAYER 2 + ACTIVATION LAYER 2
 	HIDDEN LAYER 3 : DENSE LAYER 3 + BN LAYER 3 + ACTIVATION LAYER 3
 	HIDDEN LAYER 4 : DENSE LAYER 4 + BN LAYER 4 + ACTIVATION LAYER 4
 	HIDDEN LAYER 5 : DENSE LAYER 5 + BN LAYER 5 + ACTIVATION LAYER 5
 	HIDDEN LAYER 6 : DENSE LAYER 6 + BN LAYER 6 + ACTIVATION LAYER 6
-	OUTPUT LAYER 
+	OUTPUT LAYER
 ```
 
-​	In the "INPUT LAYER", there is no paramters. All variables are given in that layer. For the "HIDDEN LAYER 1", there are $784 \times 500 = 392000$ paramters on "DENSE LAYER 1"(I don't use bias in a dense layer. Because, I used batch normalization). On the first batch normalization layer "BN LAYER 1", there are additional $2$ parameters. Because, it has the mean and variance parameters for each layer. I used ReLU for activation layer. So, the activation layers don't have paramters. Therefore, the number of parameters in "HIDDEN LAYER 1" is $392002$. For "HIDDEN LAYER 2", $500 \times 500 = 250000$ parameters on "DENS LAYER 2", there, also, are 2 additional parameters on "BN LAYER 2". So, the number of paramters on HIDDEN LAYER 2 is $250002$. The parameter counting methods of hidden layer 3 to 6 are same as that of "HIDDEN LAYER 2". For output layer, the number of paramters is $10 \times 500 = 5000$. 
+​	In the "INPUT LAYER", there is no paramters. All variables are given in that layer. For the "HIDDEN LAYER 1", there are $784 \times 500 = 392000$ paramters on "DENSE LAYER 1"(I don't use bias in a dense layer. Because, I used batch normalization). On the first batch normalization layer "BN LAYER 1", there are additional $2$ parameters. Because, it has the mean and variance parameters for each layer. I used ReLU for activation layer. So, the activation layers don't have paramters. Therefore, the number of parameters in "HIDDEN LAYER 1" is $392002$. For "HIDDEN LAYER 2", $500 \times 500 = 250000$ parameters on "DENS LAYER 2", there, also, are 2 additional parameters on "BN LAYER 2". So, the number of paramters on HIDDEN LAYER 2 is $250002$. The parameter counting methods of hidden layer 3 to 6 are same as that of "HIDDEN LAYER 2". For output layer, the number of paramters is $10 \times 500 = 5000$.
 
 ​	To sum it up, the number of paramters on 7-layer networks is calculated as below:
 $$
@@ -90,13 +90,13 @@ $$
 
 #### 3-1. Dropout
 
-​	I used dropout for each dense layer with probability $0.5$. I have heard that dropping a node with a probability of $0.5$ works well to prevent overfitting. It is common to set this value between $0.1$ and $0.5$, which I have chosen to be $0.5$. Because, I've learned that 0.5 is the quite good probability to avoid overffitting when I tested the probabilities of 0.1, 0.2, 0.3, 0.4, 0.5 under certain hyperparameters. Especially, when dropout is performed with a probability of 0.1, it can be confirmed that overfitting occurs insignificantly. 
+​	I used dropout for each dense layer with probability $0.5$. I have heard that dropping a node with a probability of $0.5$ works well to prevent overfitting. It is common to set this value between $0.1$ and $0.5$, which I have chosen to be $0.5$. Because, I've learned that 0.5 is the quite good probability to avoid overffitting when I tested the probabilities of 0.1, 0.2, 0.3, 0.4, 0.5 under certain hyperparameters. Especially, when dropout is performed with a probability of 0.1, it can be confirmed that overfitting occurs insignificantly.
 
 
 
 #### 3-2. Batch Normalization
 
-​	I also did batch normalization with dropout. I was careful in ordering layers to proceed with dropout and batch normalization. Batch normalization certainly increases the time taken per epoch. However, I could feel empirically that the degree of convergence per epoch is larger, resulting in a faster convergence of the network. It was much faster to converge than using dropout without batch normalization. As a result, we could find a good hyper parameter through more trials. 
+​	I also did batch normalization with dropout. I was careful in ordering layers to proceed with dropout and batch normalization. Batch normalization certainly increases the time taken per epoch. However, I could feel empirically that the degree of convergence per epoch is larger, resulting in a faster convergence of the network. It was much faster to converge than using dropout without batch normalization. As a result, we could find a good hyper parameter through more trials.
 
 ​	And as the batch normalization progresses, the network seems to be more stable. If batch normalization is not used, the end result may vary from trial to trial. I obseerved that the performance of the evaluation set varies from 55% to 65%. Using batch normalization, we can confirm that 60% of the performance is stable regardless of the trial. The more detail information is served in 4-2.
 
@@ -114,21 +114,21 @@ $$
 
 ​	We learned about data augmentation techniques in class. It is a technique to create more training data based on given training data to solve the problem of a small number of training data. To augment data, I have to investigate what types of input data are. So, I analyzed the .npy file given in the assignment and checked what real images we were trying to classify. The detailed process are described in [this page](https://github.com/JoonyoungYi/18s-cs492-assign1-data).
 
-​	The task given in this assignment was to predict the digit from very noisy digit image data. 
+​	The task given in this assignment was to predict the digit from very noisy digit image data.
 
-![data-example-0](data-example-0.png) ![data-example-1](data-example-1.png) ![data-example-2](data-example-2.png) ![data-example-3](data-example-3.png) 
+![data-example-0](data-example-0.png) ![data-example-1](data-example-1.png) ![data-example-2](data-example-2.png) ![data-example-3](data-example-3.png)
 
-The four images shown above are examples. The images are very noisy as you can see. From seeing the examples of the training data, I realized that I can augment data by rotating the images and flipping data. In this idea, I was able to produce 8 times the data. 
+The four images shown above are examples. The images are very noisy as you can see. From seeing the examples of the training data, I realized that I can augment data by rotating the images and flipping data. In this idea, I was able to produce 8 times the data.
 
-​	I can see that the letter in the image were all white, and their thickness was different to each images. I thought I would use the opencv or pillow module to adjust the text thickness and add it to the training data, but I did not think the opencv or pillow module would be installed on the TA's computer and would not work properly. So this method did not proceed. It is expected that adding this method will definitely produce a classifier with better performance. 
+​	I can see that the letter in the image were all white, and their thickness was different to each images. I thought I would use the opencv or pillow module to adjust the text thickness and add it to the training data, but I did not think the opencv or pillow module would be installed on the TA's computer and would not work properly. So this method did not proceed. It is expected that adding this method will definitely produce a classifier with better performance.
 
-​	However, instead of using the opencv or pillow modules, I mimiced it with numpy code. I was able to get a 1px thick text, and I added this data to my training data to train. Thus, the data size can be increased by a total of 16 times. 
+​	However, instead of using the opencv or pillow modules, I mimiced it with numpy code. I was able to get a 1px thick text, and I added this data to my training data to train. Thus, the data size can be increased by a total of 16 times.
 
 ​	Without data augmentation, we only had about 50% performance and we could achieve 60% performance with 16 times as much data.
 
 
 
-#### 3-5. ReLU(Activation Function) 
+#### 3-5. ReLU(Activation Function)
 
 ​	It is not regularization technique, But I want to introduce my activation function. In the one of the lectures, we learned that **MAXOUT** activation works well with dropout regularization technique. But, when I tested the **MAXOUT** activation, **MAXOUT** exhibited lower performance than **ReLU**. I also tested leaky ReLU, but I've adopted ReLU as an activation function to reduce the number of hyper parameters because there is not much difference in performance between ReLU and leaky ReLU.
 
@@ -140,7 +140,7 @@ The four images shown above are examples. The images are very noisy as you can s
 
 
 
-### 4. Performance and Analyzation 
+### 4. Performance and Analyzation
 
 #### 4-1. The Testing Machine
 
@@ -167,7 +167,7 @@ physical_device_desc: "device: 0, name: TITAN Xp, pci bus id: 0000:03:00.0, comp
 ]
 ```
 
-I reported this detailed machine information to notify to TAs that this code doesn't works on the machine with lower memory size. 
+I reported this detailed machine information to notify to TAs that this code doesn't works on the machine with lower memory size.
 
 
 
@@ -189,7 +189,7 @@ INPUT_LAYER_SIZE = IMAGE_SIZE * IMAGE_SIZE
 OUTPUT_LAYER_SIZE = 10
 
 hidden_layer_size = 500
-hidden_layer_number = 6			# 2 or 4 
+hidden_layer_number = 6			# 2 or 4
 MODEL_FOLDER_NAME = './models/pa1-{}'
 DROPOUT_RATE = 0.5
 learning_rate = 1e-4
@@ -209,7 +209,7 @@ EARLY_STOP_VALID_LOSS_MULTIPLIER = 1.5
 BN_MOMENTUM = 0.9
 ```
 
-​	Before showing the anlyzations of each results, I want to introduce another experiment on human. Recall 3.4 Section, I served some of images in training data. As you can see from the examples, there are some cases where there is a lot of noise in a given image so that it is hard to see what number it is in human's eyes. 
+​	Before showing the anlyzations of each results, I want to introduce another experiment on human. Recall 3.4 Section, I served some of images in training data. As you can see from the examples, there are some cases where there is a lot of noise in a given image so that it is hard to see what number it is in human's eyes.
 
 ​	In fact, I also tried digit recognition experiments with humans. I experimented with two friends. I gave them 10 images and request them to answer which digit is. Of course, they were asked to do testing only with no training data. One friend hit 7 of 10, and one friend hit 5. I wan to emphasize that these training data is very hard to predict. And I thought that the final about 60% accuracy was pretty good.
 
@@ -217,7 +217,7 @@ BN_MOMENTUM = 0.9
 
 #### 4-3. Performance Analysis
 
-​	As the number of nodes increases, the time taken for 100 epochs becomes longer. This is because there are a lot of parameters to run. The number of nodes per layer is the same. So, the small number of layers means that the number of parameters is small, and the small number of parameters means that the network capacity is small. The small capacity of the network means that the network is less expressive. However, with the hyper parameter and normalization methods that I used in this code, there is not much difference in the performance according to the number of layers. Several additional experiments show that the number of nodes and other hyper parameters are not significantly affected. If the network capacity is low, the original training error should be higher. But, it indicates a similar level of training error and accuracy. 
+​	As the number of nodes increases, the time taken for 100 epochs becomes longer. This is because there are a lot of parameters to run. The number of nodes per layer is the same. So, the small number of layers means that the number of parameters is small, and the small number of parameters means that the network capacity is small. The small capacity of the network means that the network is less expressive. However, with the hyper parameter and normalization methods that I used in this code, there is not much difference in the performance according to the number of layers. Several additional experiments show that the number of nodes and other hyper parameters are not significantly affected. If the network capacity is low, the original training error should be higher. But, it indicates a similar level of training error and accuracy.
 
 ​	Why did this result come out? I think that I use regularization techniques properly. That is to say, the capacity of 500 nodes per layer seems to be bigger than the proper capacity to learn this problem. In other words, if more layers are used, overfitting should result in more evalution error. But, in my case, the proper regularization schemes may be used to avoid overfitting. As a result, I concluded that using regularizations enabled me to construct a robust network independent to hyper parameters.
 
@@ -226,3 +226,17 @@ BN_MOMENTUM = 0.9
 ### 5. ETC
 
 ​	This codes will be uploaded in `Github`. You can see this code and materials [this page](https://github.com/JoonyoungYi/18s-cs492-assign1), also.
+
+
+
+
+###
+7: 76.2 %
+5: 74.9 %
+3: 70.3 %
+
+
+# extra 1
+필터 8개씩 늘리고,
+그 다음에 끝에서 두번째 fully connected layer의 node 수를 1024에서 2048로 증가시킴.
+그 다음에 learning rate 를 줄임.

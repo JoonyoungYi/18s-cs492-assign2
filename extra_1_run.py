@@ -7,8 +7,8 @@ import random
 import tensorflow as tf
 import numpy as np
 
-from config import *
-from model import fc_model_fn
+from extra_1_config import *
+from extra_1_model import fc_model_fn
 
 # tf.logging.set_verbosity(tf.logging.INFO)
 tf.logging.set_verbosity(tf.logging.FATAL)
@@ -217,15 +217,13 @@ def main(model_idx, refresh=False):
     result = np.asarray([list(x.values())[1] for x in pred_list])
     # ----------------------------------------- ##
 
-    np.save('20183453_network_{}.npy'.format(hidden_layer_number), result)
+    np.save('extra_1_20183453_network_{}.npy'.format(hidden_layer_number), result)
 
 
 if __name__ == '__main__':
     from tensorflow.python.client import device_lib
     print(device_lib.list_local_devices())
 
-    # 2: layer-3
-    # 1: layer-5
-    # 0: layer-7
-    model_idx = 0
-    main(model_idx, refresh=False)
+    # extra-1 : 3
+    model_idx = 3
+    main(model_idx, refresh=True)

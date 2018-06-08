@@ -1,6 +1,6 @@
 import tensorflow as tf
 
-from config import *
+from extra_1_config import *
 
 
 def fc_model_fn(features, labels, mode):
@@ -14,7 +14,7 @@ def fc_model_fn(features, labels, mode):
     for i in range(hidden_layer_number - 2):
         conv_layer = tf.layers.conv2d(
             inputs=input_layer,
-            filters=8 * (i + 1),
+            filters=8 * (i + 2),
             kernel_size=[5, 5],
             padding="same",
             activation=tf.nn.relu)
@@ -31,10 +31,10 @@ def fc_model_fn(features, labels, mode):
 
     pooling_layer_flat = tf.reshape(input_layer, [
         -1, fc_layer_input_size * fc_layer_input_size * 8 *
-        (hidden_layer_number - 2)
+        (hidden_layer_number - 1)
     ])
     dense_layer = tf.layers.dense(
-        inputs=pooling_layer_flat, units=1024, activation=tf.nn.relu)
+        inputs=pooling_layer_flat, units=2048, activation=tf.nn.relu)
     dropout_layer = tf.layers.dropout(
         inputs=dense_layer,
         rate=DROPOUT_RATE,

@@ -3,10 +3,10 @@ INPUT_LAYER_SIZE = IMAGE_SIZE * IMAGE_SIZE
 OUTPUT_LAYER_SIZE = 10
 
 # hidden_layer_size = 500
-hidden_layer_number = 3
+hidden_layer_number = 7
 MODEL_FOLDER_NAME = './models/pa2-{}'
 DROPOUT_RATE = 0.5
-learning_rate = 2e-4
+learning_rate = 1e-4
 
 NOISE_STD = 0.06
 TRAINING_DATA_NUMBER = 160000
