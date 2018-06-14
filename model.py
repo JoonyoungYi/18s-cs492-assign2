@@ -12,6 +12,7 @@ def fc_model_fn(features, labels, mode):
     input_layer = tf.reshape(features["x"], [-1, 28, 28, 1])
     fc_layer_input_size = 28
     for i in range(hidden_layer_number - 2):
+        print(i, input_layer)
         conv_layer = tf.layers.conv2d(
             inputs=input_layer,
             filters=8 * (i + 1),
@@ -22,7 +23,7 @@ def fc_model_fn(features, labels, mode):
         fc_layer_input_size -= 1
         pooling_layer = tf.layers.max_pooling2d(
             inputs=conv_layer, pool_size=[2, 2], strides=strides)
-
+        print(i, pooling_layer)
         dropout_layer = tf.layers.dropout(
             inputs=pooling_layer,
             rate=DROPOUT_RATE,
@@ -49,6 +50,8 @@ def fc_model_fn(features, labels, mode):
         # It is used for PREDICT and by the `logging_hook`.
         "probabilities": tf.nn.softmax(output_layer, name="softmax_tensor")
     }
+
+    assert False
 
     # In predictions, return the prediction value, do not modify
     if mode == tf.estimator.ModeKeys.PREDICT:

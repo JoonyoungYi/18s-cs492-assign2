@@ -236,7 +236,8 @@ BN_MOMENTUM = 0.9
 3: 70.3 %
 
 
-# extra 1
-필터 8개씩 늘리고,
-그 다음에 끝에서 두번째 fully connected layer의 node 수를 1024에서 2048로 증가시킴.
-그 다음에 learning rate 를 줄임.
+
+# extra 2
+7: 54.1 %
+5: 61.3 %
+3: 65.3 %

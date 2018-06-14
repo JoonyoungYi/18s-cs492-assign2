@@ -1,6 +1,6 @@
 import tensorflow as tf
 
-from extra_2_config import *
+from extra_config import *
 
 
 def fc_model_fn(features, labels, mode):

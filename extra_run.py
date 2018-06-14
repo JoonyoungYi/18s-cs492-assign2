@@ -7,8 +7,8 @@ import random
 import tensorflow as tf
 import numpy as np
 
-from extra_2_config import *
-from extra_2_model import fc_model_fn
+from extra_config import *
+from extra_model import fc_model_fn
 
 # tf.logging.set_verbosity(tf.logging.INFO)
 tf.logging.set_verbosity(tf.logging.FATAL)
@@ -122,7 +122,7 @@ def main(model_idx, refresh=False):
     result = np.asarray([list(x.values())[1] for x in pred_list])
     # ----------------------------------------- ##
 
-    np.save('extra_2_20183453_network_{}.npy'.format(hidden_layer_number),
+    np.save('extra_20183453_network_{}.npy'.format(hidden_layer_number),
             result)
 
 
@@ -134,4 +134,4 @@ if __name__ == '__main__':
     # 5: layer-5
     # 4: layer-7
     model_idx = 4
-    main(model_idx, refresh=True)
+    main(model_idx, refresh=False)
